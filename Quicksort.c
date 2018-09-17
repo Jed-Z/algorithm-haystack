@@ -2,7 +2,7 @@
 Author: Jed Zhang
 Date: 20171215
 Time: 19:26
-Note: QuickSort by myself.
+Note: QuickSort in pure C. See also: http://developer.51cto.com/art/201403/430986.htm
 */
 #include <stdio.h>
 void qsort(int [], int);
