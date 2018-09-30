@@ -78,5 +78,5 @@ int priority(char c) {
 			return 4;
 		}
 	}
-	return 9;	// This could be useful for '('.
+	return 9;
 }
