@@ -13,16 +13,10 @@ int main(void)
 	int n, steps;
 	scanf("%d", &n);
 	steps = stepNum(n);
-	if(steps == 0)
-		printf("ERROR!");
-	else
-		printf("Require %ld step(s)!\nPress ENTER to continue.\n", stepNum(n));
-	getchar();
-	getchar();
-
+	if(steps == 0) printf("ERROR!");
 	//开始输出步骤
 	move(n, 'A', 'C', 'B');
-	printf("\nThe end, my friend!\n");
+	printf("\nTotal %ld step(s)!\n\n", stepNum(n));
 	return 0;
 }
 
@@ -40,11 +34,10 @@ void move(int x, char orig, char targ, char trans)
 {
 	static long i = 0;
 	if(1 == x) {
-		printf("STEP %d : %c -> %c\n", ++i, orig, targ);
+		printf("STEP %-2d : %c -> %c\n", ++i, orig, targ);
 	} else {
 		move(x-1, orig, trans, targ);
-		printf("STEP %d : %c -> %c\n", ++i, orig, targ);
+		printf("STEP %-2d : %c -> %c\n", ++i, orig, targ);
 		move(x-1, trans, targ, orig);
 	}
-
 }
