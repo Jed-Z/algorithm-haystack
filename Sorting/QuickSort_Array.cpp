@@ -34,7 +34,7 @@ void quick_sort(int data[], int bottom, int top){
 }
 int main()
 {
-	int data[] = { 8, 4, 3, 5, 1, 7, 6, 2 };
+	int data[] = { 43, 16, 27, 59, 50, 26, 31, 48, 62, 36, 13, 50, 15, 27, 15, 37, 37, 16, 37, 21, 22, 19, 41, 27, 8, 25, 65, 59, 60, 1, 51, 18, 52, 42, 57, 65, 3, 39, 51, 44, 49, 59, 34, 8, 64, 38, 60, 45, 48, 42 };
 	int size = sizeof(data) / sizeof(data[0]);
 
 	for (int i = 0; i < size; i++) {
