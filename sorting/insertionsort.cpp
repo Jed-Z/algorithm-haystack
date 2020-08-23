@@ -1,10 +1,3 @@
-/* *************************
-* FileName: InsertionSort_LinkedList.cpp
-* Author: Jed Zhang
-* Site: 
-* Date: 2018.11.21
-* Description: 链表（非STL）的插入排序算法。 
-**************************/
 #include <iostream>
 using namespace std;
 

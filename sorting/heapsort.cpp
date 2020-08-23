@@ -1,10 +1,3 @@
-/* *************************
-* FileName: HeapSort_Array.cpp
-* Author: Jed Zhang
-* Site: 
-* Date: 2018.11.22
-* Description: 顺序表（数组）的堆排序算法。 
-**************************/
 #include <iostream>
 using namespace std;
 

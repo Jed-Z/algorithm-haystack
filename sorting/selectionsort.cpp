@@ -1,10 +1,3 @@
-/* *************************
-* FileName: SelectionSort_Array.cpp
-* Author: Jed Zhang
-* Site: https://www.jedbit.com
-* Date: 2018.11.21
-* Description: 顺序表（数组）的选择排序算法。 
-**************************/
 #include <iostream>
 using namespace std;
 
