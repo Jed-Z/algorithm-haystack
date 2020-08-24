@@ -1,9 +1,12 @@
 #ifndef _DATE_H_
 #define _DATE_H_
+
 #include <string>
 using namespace std;
+
 const int days_of_month_common[] = {31, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30};
 const int days_of_month_leap[] = {31, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30};
+
 class Date {
   private:
     int _year, _month, _day;
