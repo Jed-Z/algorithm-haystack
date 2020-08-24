@@ -1,9 +1,3 @@
-/*
-Author: Jed Zhang
-Date: 2018.8.28
-Note: 最大子列和问题
-URL: https://www.jeddd.com/article/maximum-subarray-algorithm.html
-*/
 #include <iostream>
 using namespace std;
 

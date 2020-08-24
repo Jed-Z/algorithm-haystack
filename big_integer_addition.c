@@ -1,10 +1,3 @@
-/* *************************
-* FileName: BigIntegerAddition.c
-* Author: Jed Zhang
-* Site: https://www.jedbit.com
-* Date: 2018.3.11
-* Description:
-**************************/
 #include <stdio.h>
 #include <string.h>
 #define LMAX 1000

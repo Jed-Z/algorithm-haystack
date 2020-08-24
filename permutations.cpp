@@ -1,7 +1,3 @@
-/*
-https://leetcode.com/problems/permutations-ii
-含重复元素的全排列 
-*/
 #include <iostream>
 //---------------------
 #include <vector>

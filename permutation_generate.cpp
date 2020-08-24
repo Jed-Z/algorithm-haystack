@@ -1,10 +1,3 @@
-/*
-Author: Jed Zhang
-Date: 2018.1.4
-Time: 10:23
-Note: Permutation with dictionary sequence, by Jed himself.
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
 /*headers*/
