@@ -1,185 +1,193 @@
-#include <iostream> 
 #include "BinaryTree.hpp"
+
+#include <iostream>
 using namespace std;
-BinaryTree::BinaryTree() :root(nullptr) {}
+BinaryTree::BinaryTree() : root(nullptr) {}
 BinaryTree::BinaryTree(const int* arr, int len) : root(nullptr) {
-	for (int i = 0; i < len; i++) {
-		insert(arr[i]);
-	}
+    for (int i = 0; i < len; i++) {
+        insert(arr[i]);
+    }
 }
-BinaryTree::BinaryTree(const BinaryTree& that) {
-	BuildTree(that.root, this->root);
-}
+BinaryTree::BinaryTree(const BinaryTree& that) { BuildTree(that.root, this->root); }
 BinaryTree::~BinaryTree() { clear(); }
-void BinaryTree::BuildTree(const int* arr, int len, node* &root) {/*useless*/ }
-void BinaryTree::BuildTree(const node* Source_Root, node* &Target_Root) {
-	if (Source_Root) {
-		Target_Root = new node(Source_Root->ele);
-		BuildTree(Source_Root->left, Target_Root->left);
-		BuildTree(Source_Root->right, Target_Root->right);
-	}
-	else { Target_Root = nullptr; }
+void BinaryTree::BuildTree(const int* arr, int len, node*& root) { /*useless*/
+}
+void BinaryTree::BuildTree(const node* Source_Root, node*& Target_Root) {
+    if (Source_Root) {
+        Target_Root = new node(Source_Root->ele);
+        BuildTree(Source_Root->left, Target_Root->left);
+        BuildTree(Source_Root->right, Target_Root->right);
+    } else {
+        Target_Root = nullptr;
+    }
 }
 void BinaryTree::insert(int e) {
-	if (root == nullptr) { root = new node(e); }
-	else {
-		node* nowptr = root, *lastptr = nullptr;
-		while (nowptr) {
-			lastptr = nowptr;
-			if (e < nowptr->ele) { nowptr = nowptr->left; }
-			else if (e > nowptr->ele) { nowptr = nowptr->right; }
-			else { return; }
-		}
-		if (e < lastptr->ele) { lastptr->left = new node(e); }
-		else { lastptr->right = new node(e); }
-	}
+    if (root == nullptr) {
+        root = new node(e);
+    } else {
+        node *nowptr = root, *lastptr = nullptr;
+        while (nowptr) {
+            lastptr = nowptr;
+            if (e < nowptr->ele) {
+                nowptr = nowptr->left;
+            } else if (e > nowptr->ele) {
+                nowptr = nowptr->right;
+            } else {
+                return;
+            }
+        }
+        if (e < lastptr->ele) {
+            lastptr->left = new node(e);
+        } else {
+            lastptr->right = new node(e);
+        }
+    }
 }
 void BinaryTree::print() {
-	preorder(root);
-	cout << endl;
+    preorder(root);
+    cout << endl;
 }
 void BinaryTree::preorder(const node* p) {
-	if (p) {
-		cout << p->ele << " ";
-		preorder(p->left);
-		preorder(p->right);
-	}
+    if (p) {
+        cout << p->ele << " ";
+        preorder(p->left);
+        preorder(p->right);
+    }
 }
 void BinaryTree::clear() {
-	MemoryDelete(root);
-	root = nullptr;
+    MemoryDelete(root);
+    root = nullptr;
 }
 void BinaryTree::MemoryDelete(node* p) {
-	if (p) {
-		if (p->left) {
-			MemoryDelete(p->left);
-		}
-		if (p->right) {
-			MemoryDelete(p->right);
-		}
-	}
-	delete p;
+    if (p) {
+        if (p->left) {
+            MemoryDelete(p->left);
+        }
+        if (p->right) {
+            MemoryDelete(p->right);
+        }
+    }
+    delete p;
 }
 void BinaryTree::ResetTree(const int* arr, int len) {
-	clear();
-	for (int i = 0; i < len; i++) {
-		insert(arr[i]);
-	}
+    clear();
+    for (int i = 0; i < len; i++) {
+        insert(arr[i]);
+    }
 }
 void BinaryTree::Delete(int e) {
-	//ÕÒµ½ÒªÉ¾³ýµÄ½Úµãnowptr£¬²¢´¢´æËüµÄ¸¸Ç×lastptr
-	node* nowptr = root, *lastptr = nullptr;
-	while (nowptr) {
-		if (e < nowptr->ele) {
-			lastptr = nowptr;
-			nowptr = nowptr->left;
-		}
-		else if (e > nowptr->ele) {
-			lastptr = nowptr;
-			nowptr = nowptr->right;
-		}
-		else { break; }	//ÕÒÍêÁË
-	}
-	if (nowptr == nullptr) { return; }
+    //ï¿½Òµï¿½ÒªÉ¾ï¿½ï¿½ï¿½Ä½Úµï¿½nowptrï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½lastptr
+    node *nowptr = root, *lastptr = nullptr;
+    while (nowptr) {
+        if (e < nowptr->ele) {
+            lastptr = nowptr;
+            nowptr = nowptr->left;
+        } else if (e > nowptr->ele) {
+            lastptr = nowptr;
+            nowptr = nowptr->right;
+        } else {
+            break;
+        }  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    }
+    if (nowptr == nullptr) {
+        return;
+    }
 
-	//Èç¹û´ýÉ¾³ý½ÚµãÊÇÒ¶×Ó
-	if (nowptr->left == nullptr && nowptr->right == nullptr) {
-		//nowptrÊÇ¸ù½Úµã
-		if (lastptr == nullptr) {
-			delete nowptr;
-			root = nullptr;
-		}
-		//nowptrÊÇËü¸¸Ç×µÄ×ó¶ù×Ó
-		else if (nowptr == lastptr->left) {
-			lastptr->left = nullptr;
-			delete nowptr;
-		}
-		//nowptrÊÇËü¸¸Ç×µÄÓÒ¶ù×Ó
-		else if (nowptr == lastptr->right) {
-			lastptr->right = nullptr;
-			delete nowptr;
-		}
-	}
-	//Èç¹û´ýÉ¾³ý½ÚµãÖ»ÓÐ×ó¶ù×ÓÃ»ÓÐÓÒ¶ù×Ó
-	else if (nowptr->left != nullptr && nowptr->right == nullptr) {
-		//nowptrÊÇ¸ù½Úµã
-		if(lastptr==nullptr) {
-			root = nowptr->left;
-		}
-		//nowptrÊÇËü¸¸Ç×µÄ×ó¶ù×Ó
-		else if (nowptr == lastptr->left) {
-			lastptr->left = nowptr->left;
-		}
-		//nowptrÊÇËü¸¸Ç×µÄÓÒ¶ù×Ó
-		else if (nowptr == lastptr->right) {
-			lastptr->right = nowptr->left;
-		}
-		delete nowptr;
-	}
-	//Èç¹û´ýÉ¾³ý½ÚµãÖ»ÓÐÓÒ¶ù×ÓÃ»ÓÐ×ó¶ù×Ó
-	else if (nowptr->right != nullptr && nowptr->left == nullptr) {
-		//nowptrÊÇ¸ù½Úµã
-		if(lastptr==nullptr) {
-			root = nowptr->right;
-		}
-		//nowptrÊÇËü¸¸Ç×µÄ×ó¶ù×Ó
-		else if (nowptr == lastptr->left) {
-			lastptr->left = nowptr->right;
-		}
-		//nowptrÊÇËü¸¸Ç×µÄÓÒ¶ù×Ó
-		else if (nowptr == lastptr->right) {
-			lastptr->right = nowptr->right;
-		}
-		delete nowptr;
-	}
+    //ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½Ò¶ï¿½ï¿½
+    if (nowptr->left == nullptr && nowptr->right == nullptr) {
+        // nowptrï¿½Ç¸ï¿½ï¿½Úµï¿½
+        if (lastptr == nullptr) {
+            delete nowptr;
+            root = nullptr;
+        }
+        // nowptrï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        else if (nowptr == lastptr->left) {
+            lastptr->left = nullptr;
+            delete nowptr;
+        }
+        // nowptrï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+        else if (nowptr == lastptr->right) {
+            lastptr->right = nullptr;
+            delete nowptr;
+        }
+    }
+    //ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½Úµï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+    else if (nowptr->left != nullptr && nowptr->right == nullptr) {
+        // nowptrï¿½Ç¸ï¿½ï¿½Úµï¿½
+        if (lastptr == nullptr) {
+            root = nowptr->left;
+        }
+        // nowptrï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        else if (nowptr == lastptr->left) {
+            lastptr->left = nowptr->left;
+        }
+        // nowptrï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+        else if (nowptr == lastptr->right) {
+            lastptr->right = nowptr->left;
+        }
+        delete nowptr;
+    }
+    //ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½Úµï¿½Ö»ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    else if (nowptr->right != nullptr && nowptr->left == nullptr) {
+        // nowptrï¿½Ç¸ï¿½ï¿½Úµï¿½
+        if (lastptr == nullptr) {
+            root = nowptr->right;
+        }
+        // nowptrï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        else if (nowptr == lastptr->left) {
+            lastptr->left = nowptr->right;
+        }
+        // nowptrï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+        else if (nowptr == lastptr->right) {
+            lastptr->right = nowptr->right;
+        }
+        delete nowptr;
+    }
 
-	//Èç¹û´ýÉ¾³ý½ÚµãÓÐÁ½¸ö¶ù×Ó
-	else if (nowptr->right && nowptr->left) {
-		//ÏÈÕÒnowptr×ó½Úµã×îÓÒ±ßµÄ×Ó½ÚµãrºÍËüµÄ¸¸Ç×rfather
-		node* r = nowptr->left, *rfather = nowptr;
-		while (r->right) {
-			rfather = r;
-			r = r->right;
-		}
-		//nowptrÊÇ¸ù½Úµã
-		if(lastptr==nullptr) {
-			if (nowptr == rfather) {
-				r->right = nowptr->right;
-				root = r;
-			}
-			else {
-				rfather->right = r->left;
-				r->left = nowptr->left;
-				r->right = nowptr->right;
-				root = r;
-			}
-		}
-		//nowptrÊÇËü¸¸Ç×µÄ×ó¶ù×Ó
-		else if (nowptr == lastptr->left) {
-			if (nowptr == rfather) {
-				r->right = nowptr->right;
-				lastptr->left = r;
-			}
-			else {
-				rfather->right = r->left;
-				r->left = nowptr->left;
-				r->right = nowptr->right;
-				lastptr->left = r;
-			}
-		}
-		//nowptrÊÇËü¸¸Ç×µÄÓÒ¶ù×Ó
-		else if (nowptr == lastptr->right) {
-			if (nowptr == rfather) {
-				r->right = nowptr->right;
-				lastptr->right = r;
-			}
-			else {
-				rfather->right = r->left;
-				r->left = nowptr->left;
-				r->right = nowptr->right;
-				lastptr->right = r;
-			}
-		}
-		delete nowptr;
-	}
+    //ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    else if (nowptr->right && nowptr->left) {
+        //ï¿½ï¿½ï¿½ï¿½nowptrï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½Ò±ßµï¿½ï¿½Ó½Úµï¿½rï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½rfather
+        node *r = nowptr->left, *rfather = nowptr;
+        while (r->right) {
+            rfather = r;
+            r = r->right;
+        }
+        // nowptrï¿½Ç¸ï¿½ï¿½Úµï¿½
+        if (lastptr == nullptr) {
+            if (nowptr == rfather) {
+                r->right = nowptr->right;
+                root = r;
+            } else {
+                rfather->right = r->left;
+                r->left = nowptr->left;
+                r->right = nowptr->right;
+                root = r;
+            }
+        }
+        // nowptrï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        else if (nowptr == lastptr->left) {
+            if (nowptr == rfather) {
+                r->right = nowptr->right;
+                lastptr->left = r;
+            } else {
+                rfather->right = r->left;
+                r->left = nowptr->left;
+                r->right = nowptr->right;
+                lastptr->left = r;
+            }
+        }
+        // nowptrï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
+        else if (nowptr == lastptr->right) {
+            if (nowptr == rfather) {
+                r->right = nowptr->right;
+                lastptr->right = r;
+            } else {
+                rfather->right = r->left;
+                r->left = nowptr->left;
+                r->right = nowptr->right;
+                lastptr->right = r;
+            }
+        }
+        delete nowptr;
+    }
 }
