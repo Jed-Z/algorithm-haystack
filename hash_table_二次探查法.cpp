@@ -1,19 +1,16 @@
 ﻿#include <iostream>
-#include <vector>
 #include <string>
+#include <vector>
 using namespace std;
 const int HASH_SIZE = 13;
 
 class HashTable {
-private:
+  private:
     int table[HASH_SIZE];
-    int myhash(int value) const {
-        return value % HASH_SIZE;
-    }
-public:
-    HashTable() {
-        clear();
-    }
+    int myhash(int value) const { return value % HASH_SIZE; }
+
+  public:
+    HashTable() { clear(); }
     void clear() {
         for (int i = 0; i < HASH_SIZE; i++) {
             table[i] = INT_MAX;
@@ -28,23 +25,21 @@ public:
             if (table[hashValue] == INT_MAX || table[hashValue] == data) {
                 table[hashValue] = data;
                 return true;
-            }
-            else {
+            } else {
                 hashValue = (hashValue + increment) % HASH_SIZE;
                 increment += 2;
             }
         }
         return false;
     }
-    const int &operator[](const int& data) const {
+    const int &operator[](const int &data) const {
         int hashValue = myhash(data);
         int increment = 1;
         int probeCount = 0;
         while (probeCount++ < (HASH_SIZE + 1) / 2) {
             if (table[hashValue] == data) {
                 return data;
-            }
-            else {
+            } else {
                 hashValue = (hashValue + increment) % HASH_SIZE;
                 increment += 2;
             }
@@ -55,8 +50,7 @@ public:
         for (int i = 0; i < HASH_SIZE; i++) {
             if (table[i] != INT_MAX) {
                 cout << table[i] << " ";
-            }
-            else {
+            } else {
                 cout << "X ";
             }
         }
@@ -64,8 +58,7 @@ public:
     }
 };
 
-int main()
-{
+int main() {
     HashTable test;
     test.insert(26);
     test.insert(15);
