@@ -3,12 +3,8 @@
 #include <string>
 using namespace std;
 
-bool is_left_bracket(char c) {
-    return c == '(' || c == '[' || c == '{';
-}
-bool is_right_bracket(char c) {
-    return c == ')' || c == ']' || c == '}';
-}
+bool is_left_bracket(char c) { return c == '(' || c == '[' || c == '{'; }
+bool is_right_bracket(char c) { return c == ')' || c == ']' || c == '}'; }
 
 bool bracket_match(char c1, char c2) {
     if (is_left_bracket(c1) && is_right_bracket(c2)) {
