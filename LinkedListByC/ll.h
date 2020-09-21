@@ -1,13 +1,13 @@
 #pragma once
 enum sex { MALE, FEMALE };
 typedef struct person {
-	char name[10];
-	int sex;
-}Item;
+    char name[10];
+    int sex;
+} Item;
 typedef struct node {
-	Item data;
-	struct node *next;
-}Node;
+    Item data;
+    struct node *next;
+} Node;
 typedef Node *List;
 
 void init(List *list);
