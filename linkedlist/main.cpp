@@ -15,7 +15,7 @@ int main(void) {
         switch (choice) {
             int num;
             case 1:
-                system("cls");
+                system("clear");
                 printf("          ***INSERT***\n");
                 char iptName[10];
                 int iptSex;
@@ -36,7 +36,7 @@ int main(void) {
                 }
                 break;
             case 2:
-                system("cls");
+                system("clear");
                 printf("          ***DELETE***\n");
                 printf("Enter the position : ");
                 scanf("%d", &num);
@@ -48,12 +48,12 @@ int main(void) {
                 }
                 break;
             case 3:
-                system("cls");
+                system("clear");
                 printf("          ***PRINT***\n");
                 print(&test);
                 break;
             default:
-                system("cls");
+                system("clear");
                 printf("Wrong choice!\n");
         }
     }
