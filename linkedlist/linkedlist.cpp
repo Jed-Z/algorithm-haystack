@@ -1,5 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include "ll.h"
+#include "linkedlist.h"
 
 #include <stdio.h>
 #include <stdlib.h>
