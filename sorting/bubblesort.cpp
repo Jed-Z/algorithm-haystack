@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 
-#include "common.h"
+#include "utils.h"
 using namespace std;
 
 void bubbleSort(vector<int>& nums) {
@@ -16,14 +16,6 @@ void bubbleSort(vector<int>& nums) {
 }
 
 int main() {
-    bubbleSort(td_random);
-    print(td_random);
-
-    bubbleSort(td_reversed);
-    print(td_reversed);
-
-    bubbleSort(td_duplicated);
-    print(td_duplicated);
-
+    testDefault(bubbleSort);
     return 0;
 }
