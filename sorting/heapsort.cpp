@@ -1,48 +1,36 @@
-#include <iostream>
+#include "utils.h"
 using namespace std;
 
-void insert_heap(int data[], int current, int low, int high) {
+void maxHeapify(vector<int>& nums, int low, int high) {
+    int current = nums[low];
     int largePos = 2 * low + 1;
     while (largePos <= high) {
-        if (largePos < high && data[largePos] < data[largePos + 1]) {
+        if (largePos < high && nums[largePos] < nums[largePos + 1]) {
             largePos += 1;
         }
-        if (current > data[largePos]) {
+        if (current > nums[largePos]) {
             break;
         } else {
-            data[low] = data[largePos];
+            nums[low] = nums[largePos];
             low = largePos;
             largePos = 2 * low + 1;
         }
     }
-    data[low] = current;
+    nums[low] = current;
 }
-void heap_sort(int data[], int n) {
-    for (int i = n / 2 - 1; i >= 0; i--) {
-        insert_heap(data, data[i], i, n - 1);
+
+void heapSort(vector<int>& nums) {
+    int len = nums.size();
+    for (int i = len / 2 - 1; i >= 0; i--) {
+        maxHeapify(nums, i, len - 1);
     }
-    for (int i = n - 1; i >= 0; i--) {
-        int current = data[i];
-        data[i] = data[0];
-        insert_heap(data, current, 0, i - 1);
+    for (int i = len - 1; i >= 0; i--) {
+        swap(nums[0], nums[i]);
+        maxHeapify(nums, 0, i - 1);
     }
 }
 
 int main() {
-    int data[] = {8, 4, 3, 5, 1, 7, 6, 2};
-    int size = sizeof(data) / sizeof(data[0]);
-
-    for (int i = 0; i < size; i++) {
-        cout << data[i] << " ";
-    }
-    cout << endl;
-
-    heap_sort(data, size);
-
-    for (int i = 0; i < size; i++) {
-        cout << data[i] << " ";
-    }
-    cout << endl;
-
+    testDefault(heapSort);
     return 0;
 }
