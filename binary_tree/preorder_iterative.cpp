@@ -8,11 +8,11 @@ void preorderIterative(TreeNode *root) {
     stack<TreeNode *> stk;
     stk.push(root);
     while (!stk.empty()) {
-        TreeNode *node = stk.top();
+        TreeNode *curr = stk.top();
+        cout << curr->val << ' ';  // visit
         stk.pop();
-        cout << node->val << ' ';
-        if (node->right) stk.push(node->right);
-        if (node->left) stk.push(node->left);
+        if (curr->right) stk.push(curr->right);
+        if (curr->left) stk.push(curr->left);
     }
 }
 
