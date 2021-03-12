@@ -1,17 +1,22 @@
 #include "BinaryTree.hpp"
-
 #include <iostream>
 using namespace std;
+
 BinaryTree::BinaryTree() : root(nullptr) {}
+
 BinaryTree::BinaryTree(const int* arr, int len) : root(nullptr) {
     for (int i = 0; i < len; i++) {
         insert(arr[i]);
     }
 }
+
 BinaryTree::BinaryTree(const BinaryTree& that) { BuildTree(that.root, this->root); }
+
 BinaryTree::~BinaryTree() { clear(); }
+
 void BinaryTree::BuildTree(const int* arr, int len, node*& root) { /*useless*/
 }
+
 void BinaryTree::BuildTree(const node* Source_Root, node*& Target_Root) {
     if (Source_Root) {
         Target_Root = new node(Source_Root->ele);
@@ -21,6 +26,7 @@ void BinaryTree::BuildTree(const node* Source_Root, node*& Target_Root) {
         Target_Root = nullptr;
     }
 }
+
 void BinaryTree::insert(int e) {
     if (root == nullptr) {
         root = new node(e);
@@ -43,10 +49,12 @@ void BinaryTree::insert(int e) {
         }
     }
 }
+
 void BinaryTree::print() {
     preorder(root);
     cout << endl;
 }
+
 void BinaryTree::preorder(const node* p) {
     if (p) {
         cout << p->ele << " ";
@@ -54,10 +62,12 @@ void BinaryTree::preorder(const node* p) {
         preorder(p->right);
     }
 }
+
 void BinaryTree::clear() {
     MemoryDelete(root);
     root = nullptr;
 }
+
 void BinaryTree::MemoryDelete(node* p) {
     if (p) {
         if (p->left) {
@@ -69,14 +79,16 @@ void BinaryTree::MemoryDelete(node* p) {
     }
     delete p;
 }
+
 void BinaryTree::ResetTree(const int* arr, int len) {
     clear();
     for (int i = 0; i < len; i++) {
         insert(arr[i]);
     }
 }
+
 void BinaryTree::Delete(int e) {
-    //�ҵ�Ҫɾ���Ľڵ�nowptr�����������ĸ���lastptr
+    //找到要删除的节点nowptr，并储存它的父亲lastptr
     node *nowptr = root, *lastptr = nullptr;
     while (nowptr) {
         if (e < nowptr->ele) {
@@ -87,72 +99,72 @@ void BinaryTree::Delete(int e) {
             nowptr = nowptr->right;
         } else {
             break;
-        }  //������
+        }  //找完了
     }
     if (nowptr == nullptr) {
         return;
     }
 
-    //�����ɾ���ڵ���Ҷ��
+    //如果待删除节点是叶子
     if (nowptr->left == nullptr && nowptr->right == nullptr) {
-        // nowptr�Ǹ��ڵ�
+        // nowptr是根节点
         if (lastptr == nullptr) {
             delete nowptr;
             root = nullptr;
         }
-        // nowptr�������׵������
+        // nowptr是它父亲的左儿子
         else if (nowptr == lastptr->left) {
             lastptr->left = nullptr;
             delete nowptr;
         }
-        // nowptr�������׵��Ҷ���
+        // nowptr是它父亲的右儿子
         else if (nowptr == lastptr->right) {
             lastptr->right = nullptr;
             delete nowptr;
         }
     }
-    //�����ɾ���ڵ�ֻ�������û���Ҷ���
+    //如果待删除节点只有左儿子没有右儿子
     else if (nowptr->left != nullptr && nowptr->right == nullptr) {
-        // nowptr�Ǹ��ڵ�
+        // nowptr是根节点
         if (lastptr == nullptr) {
             root = nowptr->left;
         }
-        // nowptr�������׵������
+        // nowptr是它父亲的左儿子
         else if (nowptr == lastptr->left) {
             lastptr->left = nowptr->left;
         }
-        // nowptr�������׵��Ҷ���
+        // nowptr是它父亲的右儿子
         else if (nowptr == lastptr->right) {
             lastptr->right = nowptr->left;
         }
         delete nowptr;
     }
-    //�����ɾ���ڵ�ֻ���Ҷ���û�������
+    //如果待删除节点只有右儿子没有左儿子
     else if (nowptr->right != nullptr && nowptr->left == nullptr) {
-        // nowptr�Ǹ��ڵ�
+        // nowptr是根节点
         if (lastptr == nullptr) {
             root = nowptr->right;
         }
-        // nowptr�������׵������
+        // nowptr是它父亲的左儿子
         else if (nowptr == lastptr->left) {
             lastptr->left = nowptr->right;
         }
-        // nowptr�������׵��Ҷ���
+        // nowptr是它父亲的右儿子
         else if (nowptr == lastptr->right) {
             lastptr->right = nowptr->right;
         }
         delete nowptr;
     }
 
-    //�����ɾ���ڵ�����������
+    //如果待删除节点有两个儿子
     else if (nowptr->right && nowptr->left) {
-        //����nowptr��ڵ����ұߵ��ӽڵ�r�����ĸ���rfather
+        //先找nowptr左节点最右边的子节点r和它的父亲rfather
         node *r = nowptr->left, *rfather = nowptr;
         while (r->right) {
             rfather = r;
             r = r->right;
         }
-        // nowptr�Ǹ��ڵ�
+        // nowptr是根节点
         if (lastptr == nullptr) {
             if (nowptr == rfather) {
                 r->right = nowptr->right;
@@ -164,7 +176,7 @@ void BinaryTree::Delete(int e) {
                 root = r;
             }
         }
-        // nowptr�������׵������
+        // nowptr是它父亲的左儿子
         else if (nowptr == lastptr->left) {
             if (nowptr == rfather) {
                 r->right = nowptr->right;
@@ -176,7 +188,7 @@ void BinaryTree::Delete(int e) {
                 lastptr->left = r;
             }
         }
-        // nowptr�������׵��Ҷ���
+        // nowptr是它父亲的右儿子
         else if (nowptr == lastptr->right) {
             if (nowptr == rfather) {
                 r->right = nowptr->right;

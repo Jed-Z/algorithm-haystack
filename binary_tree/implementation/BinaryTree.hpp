@@ -1,13 +1,15 @@
-#ifndef BT_TREE
-#define BT_TREE
+#ifndef __BINARYTREE_H_
+#define __BINARYTREE_H_
 #include <iostream>
 using namespace std;
+
 struct node {
     int ele;
     node* left;
     node* right;
     node(int e) : left(0), right(0) { ele = e; }
 };
+
 class BinaryTree {
   private:
     node* root;
